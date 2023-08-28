@@ -253,6 +253,8 @@ bool URKinematicsPlugin::initialize(const std::string &robot_description,
   lookupParam("epsilon", epsilon, 1e-5);
   lookupParam(group_name+"/position_only_ik", position_ik, false);
 
+  ROS_INFO("max solveer iterations: %d", max_solver_iterations);
+  
   if(position_ik)
     ROS_INFO_NAMED("kdl","Using position only ik");
 

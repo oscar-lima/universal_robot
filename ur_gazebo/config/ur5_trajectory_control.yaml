@@ -1,0 +1,23 @@
+# Joint Trajectory Controller - velocity based -------------------------------
+# For detailed explanations of parameter see http://wiki.ros.org/joint_trajectory_controller
+ur5_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - $(arg prefix)ur5_shoulder_pan_joint
+    - $(arg prefix)ur5_shoulder_lift_joint
+    - $(arg prefix)ur5_elbow_joint
+    - $(arg prefix)ur5_wrist_1_joint
+    - $(arg prefix)ur5_wrist_2_joint
+    - $(arg prefix)ur5_wrist_3_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    $(arg prefix)ur5_shoulder_pan_joint: {trajectory: &traj_value 0.1, goal: &goal_value 0.1}
+    $(arg prefix)ur5_shoulder_lift_joint: {trajectory: *traj_value, goal: *goal_value}
+    $(arg prefix)ur5_elbow_joint: {trajectory: *traj_value, goal: *goal_value}
+    $(arg prefix)ur5_wrist_1_joint: {trajectory: *traj_value, goal: *goal_value}
+    $(arg prefix)ur5_wrist_2_joint: {trajectory: *traj_value, goal: *goal_value}
+    $(arg prefix)ur5_wrist_3_joint: {trajectory: *traj_value, goal: *goal_value}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  125
+  action_monitor_rate: 10    

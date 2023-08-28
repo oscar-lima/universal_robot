@@ -18,7 +18,7 @@
   <!-- Parameters we share with ur_robot_driver -->
   <arg name="controller_config_file" doc="Config file used for defining the ROS-Control controllers."/>
   <arg name="controllers" default="joint_state_controller eff_joint_traj_controller"/>
-  <arg name="stopped_controllers" default="joint_group_eff_controller"/>
+  <!--<arg name="stopped_controllers" default="joint_group_eff_controller"/>-->
 
   <!-- Gazebo parameters -->
   <arg name="gazebo_model_name" default="robot" doc="The name to give to the model in Gazebo (after spawning it)." />
@@ -45,7 +45,8 @@
       -urdf
       -param $(arg robot_description_param_name)
       -model $(arg gazebo_model_name)
-      -z $(arg spawn_z)"
+      -z $(arg spawn_z)
+      -J elbow_joint 1.1309 -J shoulder_lift_joint -1.6336"
     output="screen" respawn="false" />
 
   <!-- Load and start the controllers listed in the 'controllers' arg. -->
@@ -53,7 +54,7 @@
     args="$(arg controllers)" output="screen" respawn="false" />
 
   <!-- Load other controllers, but do not start them -->
-  <node name="ros_control_stopped_spawner" pkg="controller_manager" type="spawner"
-    args="--stopped $(arg stopped_controllers)" output="screen" respawn="false" />
+  <!--<node name="ros_control_stopped_spawner" pkg="controller_manager" type="spawner"
+    args="- -stopped $(arg stopped_controllers)" output="screen" respawn="false" />-->
 
 </launch>

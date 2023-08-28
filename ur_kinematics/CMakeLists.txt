@@ -6,7 +6,9 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs moveit_core moveit_kinematics
   moveit_ros_planning pluginlib tf_conversions)
 
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system python numpy)
+
+find_package(PythonLibs REQUIRED)
 
 catkin_python_setup()
 
@@ -23,8 +25,11 @@ catkin_package(
 ## Build ##
 ###########
 
-include_directories(SYSTEM ${Boost_INCLUDE_DIR})
+include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_library(ur_kin_py MODULE src/ur_kin_py.cpp)
+target_link_libraries(ur_kin_py ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} ${NUMPY_LIBRARIES} ${PythonLibs_LIBRARIES})
 
 add_library(ur3_kin src/ur_kin.cpp)
 set_target_properties(ur3_kin PROPERTIES COMPILE_DEFINITIONS "UR3_PARAMS")

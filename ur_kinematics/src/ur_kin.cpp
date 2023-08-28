@@ -2,7 +2,7 @@
 
 #include <math.h>
 #include <stdio.h>
-
+#include <iostream>
 
 namespace ur_kinematics {
 
@@ -240,6 +240,8 @@ namespace ur_kinematics {
     double T12 = -*T; T++; double T10 =  *T; T++; double T11 =  *T; T++; double T13 = -*T; T++; 
     double T22 =  *T; T++; double T20 = -*T; T++; double T21 = -*T; T++; double T23 =  *T;
 
+    std::cout << "miau miau" << std::endl;
+    
     ////////////////////////////// shoulder rotate joint (q1) //////////////////////////////
     double q1[2];
     {

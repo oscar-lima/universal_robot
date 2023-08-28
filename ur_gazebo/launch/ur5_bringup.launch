@@ -39,15 +39,15 @@
 
   <!-- Controller configuration -->
   <arg name="controller_config_file" default="$(find ur_gazebo)/config/ur5_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
-  <arg name="controllers" default="joint_state_controller eff_joint_traj_controller" doc="Controllers that are activated by default."/>
-  <arg name="stopped_controllers" default="joint_group_eff_controller" doc="Controllers that are initally loaded, but not started."/>
+  <arg name="controllers" default="joint_state_controller trajectory_controller" doc="Controllers that are activated by default."/>
+  <!--<arg name="stopped_controllers" default="" doc="Controllers that are initally loaded, but not started."/>-->
 
   <!-- robot_state_publisher configuration -->
   <arg name="tf_prefix" default="" doc="tf_prefix used for the robot."/>
   <arg name="tf_pub_rate" default="125" doc="Rate at which robot_state_publisher should publish transforms."/>
 
   <!-- Gazebo parameters -->
-  <arg name="paused" default="false" doc="Starts Gazebo in paused mode" />
+  <arg name="paused" default="true" doc="Starts Gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts Gazebo gui" />
 
   <!-- Load urdf on the parameter server -->
@@ -70,6 +70,10 @@
     <arg name="controllers" value="$(arg controllers)"/>
     <arg name="gui" value="$(arg gui)"/>
     <arg name="paused" value="$(arg paused)"/>
-    <arg name="stopped_controllers" value="$(arg stopped_controllers)"/>
+    <!--<arg name="stopped_controllers" value="$(arg stopped_controllers)"/>-->
   </include>
+
+  <!--sleep for some time then call srv to unpause gazebo-->
+  <node pkg="ur_gazebo" type="gazebo_unpauser" name="gazebo_unpauser"/>
+
 </launch>
